@@ -17,6 +17,18 @@ static	void	malloc_error(void)
 	perror("probleme avec malloc");
 	exit(EXIT_FAILURE);
 }
+static void event_init(t_fractal *fractal)
+{
+	mlx_hook(fractal->win, KeyPress, KeyPressMask, key_handle, fractal);
+	//mlx_hook(fractal.win, ButtonPress, ButtonPressMask, mouse_handle, fractal);
+	//mlx_hook(fractal.win, DestroyNotify, StructureNotifyMask, close_handle, fractal);
+}
+
+void	data_init(t_fractal *fractal)
+{
+	fractal->escape_value = 4;
+	fractal->iterations_definition = 42;
+}
 
 void	fractal_init(t_fractal *fractal)
 {
@@ -41,17 +53,10 @@ void	fractal_init(t_fractal *fractal)
 		free(fractal->mlx);
 		malloc_error();
 	}
-	//fractal->img.pixels_ptr = mlx_get_data_addr(fractal->img.img_ptr,
-	//						&fractal->img.bbp,
-	//						&fractal->img.line_len,
-	//						&fractal->img.endian);
-	for (int i=200; i < 400;i++)
-	{
-		mlx_pixel_put(fractal->mlx, fractal->win, i, 100, 0xFFFFFF);
-		for (int j=200; j < 400 && i == 400; j++)
-		{
-			mlx_pixel_put(fractal->mlx, fractal->win, i, 100, 0xFFFFFF);
-		}
-	}
-	
+	 fractal->img.pixels_ptr = mlx_get_data_addr(fractal->img.img_ptr,
+							&fractal->img.bpp,
+							&fractal->img.line_len,
+							&fractal->img.endian);
+	event_init(fractal);
+	data_init(fractal);
 }

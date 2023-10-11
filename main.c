@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 	{
 		fractal.name = argv[1];
 		fractal_init(&fractal);
-		//fractal_render(&fractal);
+		fractal_render(&fractal);
 		mlx_loop(fractal.mlx);
 	}
 	else
