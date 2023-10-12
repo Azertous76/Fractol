@@ -67,11 +67,16 @@ typedef struct s_fractal
 	t_img	img;
 	double	escape_value;
 	int	iterations_definition;
-
+	double	shift_x;
+	double	shift_y;
+	double	zoom;
+	double	julia_x;
+	double	julia_y;
 }			t_fractal;
 
 int	ft_strncmp(char *s1, char *s2, int n);
 void	putstr_fd(char *s, int fd);
+double	atodbl(char *s);
 
 static	void	malloc_error(void);
 void	fractal_init(t_fractal *fractal);
@@ -79,7 +84,9 @@ static void event_init(t_fractal *fractal);
 void	data_init(t_fractal *fractal);
 
 int key_handle(int keysym, t_fractal *fractal);
-void close_handler(t_fractal *fractal);
+int close_handler(t_fractal *fractal);
+int mouse_handler(int button, int x, int y, t_fractal *fractal);
+//int	julia_track(int x, int y, t_fractal *fractal);
 
 static void my_pixel_put(int x, int y, t_img *img, int color);
 static void	handle_pixel(int x, int y, t_fractal *fractal);

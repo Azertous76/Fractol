@@ -12,6 +12,21 @@
 
 #include "fractol.h"
 
+static void mandel_julia(t_complex *z, t_complex *c, t_fractal *fractal)
+{
+	if (!ft_strncmp(fractal->name, "julia", 5))
+	{
+		c->x = fractal->julia_x;
+		c->y = fractal->julia_y;
+	}
+	else
+	{
+		c->x = z->x;
+		c->y = z->y;
+	}
+
+}
+
 static void my_pixel_put(int x, int y, t_img *img, int color)
 {
 	int offset;
@@ -29,11 +44,12 @@ static void	handle_pixel(int x, int y, t_fractal *fractal)
 	
 	
 	i = 0;
-	z.x = (0.0);
-	z.y = (0.0);
 	
-	c.x = map(x, -2, 2, WIDTH);
-	c.y = map(y, 2, -2, HEIGHT);
+	z.x = (map(x, -2, 2, WIDTH) * fractal->zoom) + fractal->shift_x;
+	z.y = (map(y, 2, -2, HEIGHT) * fractal->zoom) + fractal->shift_y;
+	
+	mandel_julia(&z, &c, fractal);
+	
 	
 	while (i < fractal->iterations_definition)
 	{
@@ -44,6 +60,8 @@ static void	handle_pixel(int x, int y, t_fractal *fractal)
 			my_pixel_put(x, y, &fractal->img, color);
 			return ;
 		}
+		else
+			my_pixel_put(x, y, &fractal->img, BLACK);
 		i++;
 	}
 }

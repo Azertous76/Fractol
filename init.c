@@ -20,14 +20,18 @@ static	void	malloc_error(void)
 static void event_init(t_fractal *fractal)
 {
 	mlx_hook(fractal->win, KeyPress, KeyPressMask, key_handle, fractal);
-	//mlx_hook(fractal.win, ButtonPress, ButtonPressMask, mouse_handle, fractal);
-	//mlx_hook(fractal.win, DestroyNotify, StructureNotifyMask, close_handle, fractal);
+	mlx_hook(fractal->win, ButtonPress, ButtonPressMask, mouse_handler, fractal);
+	mlx_hook(fractal->win, DestroyNotify, StructureNotifyMask, close_handler, fractal);
+	//mlx_hook(fractal->win, MotionNotify, PointerMotionMask, julia_track, fractal);
 }
 
 void	data_init(t_fractal *fractal)
 {
 	fractal->escape_value = 4;
 	fractal->iterations_definition = 42;
+	fractal->shift_x = 0.0;
+	fractal->shift_y = 0.0;
+	fractal->zoom = 1.0;
 }
 
 void	fractal_init(t_fractal *fractal)
