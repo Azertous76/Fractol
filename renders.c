@@ -60,10 +60,9 @@ static void	handle_pixel(int x, int y, t_fractal *fractal)
 			my_pixel_put(x, y, &fractal->img, color);
 			return ;
 		}
-		else
-			my_pixel_put(x, y, &fractal->img, BLACK);
 		i++;
 	}
+	my_pixel_put(x, y, &fractal->img, BLACK);
 }
 
 

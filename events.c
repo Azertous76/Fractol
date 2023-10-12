@@ -37,11 +37,11 @@ int key_handle(int keysym, t_fractal *fractal)
 	}
 	else if(keysym == XK_Up)
 	{
-		fractal->shift_y += 0.5;
+		fractal->shift_y += (0.5 * fractal->zoom);
 	}
 	else if(keysym == XK_Down)
 	{
-	fractal->shift_y -= 0.5;
+	fractal->shift_y -= (0.5 * fractal->zoom);
 	}
 	else if(keysym == XK_KP_Add)
 	{
@@ -62,7 +62,7 @@ int mouse_handler(int button, int x, int y, t_fractal *fractal)
 	}
 	else if (button == Button4)
 	{
-		fractal->zoom *= 1.95;
+		fractal->zoom *= 1.05;
 	}
 	fractal_render(fractal);
 }

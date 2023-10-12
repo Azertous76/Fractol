@@ -91,6 +91,7 @@ int mouse_handler(int button, int x, int y, t_fractal *fractal);
 static void my_pixel_put(int x, int y, t_img *img, int color);
 static void	handle_pixel(int x, int y, t_fractal *fractal);
 void	fractal_render(t_fractal *fractal);
+static void mandel_julia(t_complex *z, t_complex *c, t_fractal *fractal);
 
 double map(double unscaled_num, double new_min, double new_max, double old_max);
 t_complex sum_complex(t_complex z1, t_complex z2);
