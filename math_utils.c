@@ -35,3 +35,12 @@ t_complex	square_complex(t_complex z)
 	result.y = 2 * z.x * z.y;
 	return (result);
 }
+
+t_complex	absolute_complex(t_complex z)
+{
+	t_complex	result;
+
+	result.x = sqrt(z.x * z.x);
+	result.y = sqrt(z.y * z.y);
+	return (result);
+}

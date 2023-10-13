@@ -59,6 +59,33 @@ static void	handle_pixel(int x, int y, t_fractal *fractal)
 	my_pixel_put(x, y, &fractal->img, BLACK);
 }
 
+static void	handle_burning_ship_pixel(int x, int y, t_fractal *fractal)
+{
+	t_complex	z;
+	t_complex	c;
+	int			i;
+	int			color;
+
+	i = 0;
+	z.x = (map(x, -2, 2, WIDTH) * fractal->zoom) + fractal->shift_x;
+	z.y = (map(y, 2, -2, HEIGHT) * fractal->zoom) + fractal->shift_y;
+	c.x = z.x;
+	c.y = z.y;
+	while (i < fractal->iterations_definition)
+	{
+		z = absolute_complex(z);
+		z = sum_complex(square_complex(z), c);
+		if ((z.x * z.x) + (z.y * z.y) > fractal->escape_value)
+		{
+			color = map(i, BLACK, WHITE, fractal->iterations_definition);
+			my_pixel_put(x, y, &fractal->img, color);
+			return ;
+		}
+		i++;
+	}
+	my_pixel_put(x, y, &fractal->img, BLACK);
+}
+
 void	fractal_render(t_fractal *fractal)
 {
 	int	x;
@@ -70,7 +97,18 @@ void	fractal_render(t_fractal *fractal)
 		x = -1;
 		while (x++ < WIDTH)
 		{
-			handle_pixel(x, y, fractal);
+			if (!ft_strncmp(fractal->name, "mandelbrot", 10))
+			{
+				handle_pixel(x, y, fractal);
+			}
+			else if (!ft_strncmp(fractal->name, "julia", 5))
+			{
+				handle_pixel(x, y, fractal);
+			}
+			else if (!ft_strncmp(fractal->name, "burningship", 10))
+			{
+				handle_burning_ship_pixel(x, y, fractal);
+			}
 		}
 	}
 	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img.img_ptr, 0,
