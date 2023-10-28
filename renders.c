@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-static void	mandel_julia(t_complex *z, t_complex *c, t_fractal *fractal)
+void	mandel_julia(t_complex *z, t_complex *c, t_fractal *fractal)
 {
 	if (!ft_strncmp(fractal->name, "julia", 5))
 	{
@@ -26,7 +26,7 @@ static void	mandel_julia(t_complex *z, t_complex *c, t_fractal *fractal)
 	}
 }
 
-static void	my_pixel_put(int x, int y, t_img *img, int color)
+void	my_pixel_put(int x, int y, t_img *img, int color)
 {
 	int	offset;
 
@@ -34,7 +34,7 @@ static void	my_pixel_put(int x, int y, t_img *img, int color)
 	*(unsigned int *)(img->pixels_ptr + offset) = color;
 }
 
-static void	handle_pixel(int x, int y, t_fractal *fractal)
+void	handle_pixel(int x, int y, t_fractal *fractal)
 {
 	t_complex	z;
 	t_complex	c;
@@ -50,7 +50,8 @@ static void	handle_pixel(int x, int y, t_fractal *fractal)
 		z = sum_complex(square_complex(z), c);
 		if ((z.x * z.x) + (z.y + z.y) > fractal->escape_value)
 		{
-			color = map(i, BLACK, WHITE, fractal->iterations_definition);
+			color = map(i, fractal->colors1, fractal->colors2,
+					fractal->iterations_definition);
 			my_pixel_put(x, y, &fractal->img, color);
 			return ;
 		}
@@ -59,7 +60,7 @@ static void	handle_pixel(int x, int y, t_fractal *fractal)
 	my_pixel_put(x, y, &fractal->img, BLACK);
 }
 
-static void	handle_burning_ship_pixel(int x, int y, t_fractal *fractal)
+void	handle_burning_ship_pixel(int x, int y, t_fractal *fractal)
 {
 	t_complex	z;
 	t_complex	c;
@@ -77,7 +78,8 @@ static void	handle_burning_ship_pixel(int x, int y, t_fractal *fractal)
 		z = sum_complex(square_complex(z), c);
 		if ((z.x * z.x) + (z.y * z.y) > fractal->escape_value)
 		{
-			color = map(i, BLACK, WHITE, fractal->iterations_definition);
+			color = map(i, fractal->colors1, fractal->colors2,
+					fractal->iterations_definition);
 			my_pixel_put(x, y, &fractal->img, color);
 			return ;
 		}

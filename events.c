@@ -23,34 +23,45 @@ int	close_handler(t_fractal *fractal)
 
 int	key_handle(int keysym, t_fractal *fractal)
 {
-	if (keysym == XK_Escape)
+	if (keysym == 65307)
 		close_handler(fractal);
-	else if (keysym == XK_Left)
+	else if (keysym == 65361)
 		fractal->shift_x -= (0.5 * fractal->zoom);
-	else if (keysym == XK_Right)
+	else if (keysym == 65363)
 		fractal->shift_x += (0.5 * fractal->zoom);
-	else if (keysym == XK_Up)
+	else if (keysym == 65362)
 		fractal->shift_y += (0.5 * fractal->zoom);
-	else if (keysym == XK_Down)
+	else if (keysym == 65364)
 		fractal->shift_y -= (0.5 * fractal->zoom);
-	else if (keysym == XK_a)
-		fractal->iterations_definition += 1;
-	else if (keysym == XK_KP_Add)
+	else if (keysym == 97)
+	{
+		fractal->colors2 = HOT_PINK;
+	}
+	else if (keysym == 115)
+	{
+		fractal->colors1 = LIME_SHOCK;
+		fractal->colors2 = LAVA_RED;
+	}
+	else if (keysym == 65451)
 		fractal->iterations_definition += 10;
-	else if (keysym == XK_KP_Subtract)
+	else if (keysym == 65453)
 		fractal->iterations_definition -= 10;
 	fractal_render(fractal);
+	return (0);
 }
 
 int	mouse_handler(int button, int x, int y, t_fractal *fractal)
 {
-	if (button == Button5)
+	(void)x;
+	(void)y;
+	if (button == 4)
 	{
 		fractal->zoom *= 0.95;
 	}
-	else if (button == Button4)
+	else if (button == 5)
 	{
 		fractal->zoom *= 1.05;
 	}
 	fractal_render(fractal);
+	return (0);
 }

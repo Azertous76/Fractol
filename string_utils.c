@@ -27,11 +27,15 @@ int	ft_strncmp(char *s1, char *s2, int n)
 
 void	putstr_fd(char *s, int fd)
 {
+	int	i;
+
+	i = 0;
+	i = i;
 	if (s == NULL || fd < 0)
 		return ;
 	if (*s != '\0')
 	{
-		write(fd, s, 1);
+		i = write(fd, s, 1);
 		putstr_fd((s + 1), fd);
 	}
 }

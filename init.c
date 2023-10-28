@@ -12,19 +12,17 @@
 
 #include "fractol.h"
 
-static void	malloc_error(void)
+void	malloc_error(void)
 {
 	perror("probleme avec malloc");
 	exit(EXIT_FAILURE);
 }
 
-static void	event_init(t_fractal *fractal)
+void	event_init(t_fractal *fractal)
 {
-	mlx_hook(fractal->win, KeyPress, KeyPressMask, key_handle, fractal);
-	mlx_hook(fractal->win, ButtonPress, ButtonPressMask, mouse_handler,
-		fractal);
-	mlx_hook(fractal->win, DestroyNotify, StructureNotifyMask, close_handler,
-		fractal);
+	mlx_hook(fractal->win, 2, 1L << 0, key_handle, fractal);
+	mlx_hook(fractal->win, 4, 1L << 2, mouse_handler, fractal);
+	mlx_hook(fractal->win, 17, 1L << 17, close_handler, fractal);
 }
 
 void	data_init(t_fractal *fractal)
@@ -34,6 +32,8 @@ void	data_init(t_fractal *fractal)
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
 	fractal->zoom = 1.0;
+	fractal->colors1 = LIME_SHOCK;
+	fractal->colors2 = WHITE;
 }
 
 void	fractal_init(t_fractal *fractal)
